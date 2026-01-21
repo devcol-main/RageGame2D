@@ -1,62 +1,55 @@
 using System;
-using UnityEditor.SearchService;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 //
 using Utilities;
 
+public enum State
+{
+    WatintingToStart,
+    GameStart,
+    GamePause,
+    GameOver,
+    
+}
+
+
 public class GameManager : Singleton<GameManager> 
 {
-    [SerializeField] private int score;
-
-    [SerializeField] private StopwatchTimer gameTimer;
-
-    void Awake()
+    // EventHandlers
+    public event EventHandler<OnStateChangedEventArgs> OnStateChanged;
+    public class OnStateChangedEventArgs : EventArgs
     {
-        base.Awake();
-
-        gameTimer = new StopwatchTimer("");
-
-        
-
-        Debug.Log($"gameTimer.IsRunning: {gameTimer.IsRunning}");
-        
+        public State state;
     }
+
+    //
+    public State GameState { get; private set; }
+
     void Start()
     {
-        Player.Instance.OnCoinPickup += Player_OnCoinPickup;
-        gameTimer.Start();
-
-        Debug.Log($"gameTimer.IsRunning: {gameTimer.IsRunning}");
+            
     }
 
-    void OnEnable()
+    public void OnGameStart()
     {
-        //Player.Instance.OnCoinPickup += Player_OnCoinPickup;
+        GameState = State.GameStart;
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
     }
-    void OnDisable()
+
+    public void OnGamePause()
     {
-        Player.Instance.OnCoinPickup -= Player_OnCoinPickup;
+        GameState = State.GamePause;
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
     }
 
-    void Update()
+    public void OnGameOver()
     {
-        gameTimer.Tick(Time.deltaTime);
-
-        Debug.Log($"gameTimer.GetTime(): {gameTimer.GetTime()}");
+        GameState = State.GameOver;
+        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
     }
 
-
-    private void Player_OnCoinPickup(object sender, EventArgs e)
-    {
-        Debug.Log($"sender: {sender}");
-        AddScore((int)sender);
-        
-    }
-
-    private void AddScore(int addScoreAmount)
-    {
-        score += addScoreAmount;
-    }
+    
 
 }

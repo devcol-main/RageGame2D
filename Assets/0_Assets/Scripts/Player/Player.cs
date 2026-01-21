@@ -14,8 +14,13 @@ public class Player : MonoBehaviour
         
     public event EventHandler OnConsumingFuel;
 
+    //public event EventHandler<OnLandedEventArgs> 
+
+
+
     
     //[Header("Player Stats")]
+    
     public bool IsInfiniteFuel { get; private set; }
     public float MaxFuel { get; private set; }
     public float CurrentFuel { get; private set; }
@@ -40,13 +45,42 @@ public class Player : MonoBehaviour
         // Set Player Stats
         CurrentFuel = MaxFuel;
         
-    } 
+    }
+
+    void Start()
+    {
+        //
+        
+
+        //
+        GameManager.Instance.OnStateChanged += OnGameStateChanged;
+
+        this.gameObject.SetActive(false);
+    }
+
+    private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
+    {
+        Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
+
+         if (e.state == State.GameStart)
+        {
+            this.gameObject.SetActive(true);
+        }
+    }
 
     public void ConsumingFuel()
     {
+        
+
         if (!IsInfiniteFuel)
         {
             CurrentFuel -= FuelConsumptionAmount * Time.fixedDeltaTime;
+            // to prvent going to negative
+            if (CurrentFuel <= 0)
+            {
+                CurrentFuel = 0;
+            }
+
             OnConsumingFuel?.Invoke(this, EventArgs.Empty);
 
         }

@@ -39,7 +39,26 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Player>();  
         rb = GetComponent<Rigidbody2D>();  
            
+    }
 
+    void Start()
+    {
+        GameManager.Instance.OnStateChanged += OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
+    {
+        Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
+
+        if (e.state == State.WatintingToStart)
+        {
+            
+        }
+
+        if (e.state == State.GameStart)
+        {
+            
+        }
     }
 
     void FixedUpdate()
