@@ -11,7 +11,7 @@ public class InputReader : MonoBehaviour
 
     private InputActions inputActions;
 
-    public bool down;
+
 
     private void Awake()
     {
