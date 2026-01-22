@@ -5,7 +5,7 @@ using UnityEngine;
 // so, if it was parented its' child of something, kick it back up to the root level
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-    public bool AutoUnparentOnAwake = true;
+    private bool AutoUnparentOnAwake = true;
     protected static T instance;
 
     public static bool HasInstance => instance != null;

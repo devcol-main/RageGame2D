@@ -58,13 +58,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //
         
-
-        //
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
 
-        this.gameObject.SetActive(false);
     }
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)

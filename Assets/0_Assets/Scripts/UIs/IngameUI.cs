@@ -3,7 +3,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-
 //
 using Utilities;
 
@@ -13,11 +12,17 @@ public class IngameUI : MonoBehaviour
    [SerializeField] private int score;
    [SerializeField] private TextMeshProUGUI ingameTimeText;
 
+   [Header("Buttons")]
+   [SerializeField] private Button restartButton;
+
     private StopwatchTimer gameTimer;
 
     void Awake()
     {
         gameTimer = new StopwatchTimer("");
+
+        // Buttons
+        restartButton.onClick.AddListener(() =>  { SceneLoader.Instance.RestartScene();});
         
     }
     void Start()
@@ -25,6 +30,11 @@ public class IngameUI : MonoBehaviour
         Player.Instance.OnCoinPickup += Player_OnCoinPickup;
         GameManager.Instance.OnStateChanged += OnStateChaned;
 
+
+        if (State.GameStart == GameManager.Instance.GameState)
+        {
+            gameTimer.Start();
+        }
         
     }
 
@@ -55,7 +65,31 @@ public class IngameUI : MonoBehaviour
     {
         gameTimer.Tick(Time.fixedDeltaTime);
 
-        ingameTimeText.text = Math.Round(gameTimer.GetTime(),2).ToString();
+        DisplayingTime();
+        
+
+        
+
+    }
+
+    private void DisplayingTime()
+    {
+        var tempTotalTime = gameTimer.GetTime();
+        var min = (int)(tempTotalTime / 60);
+
+        var tempSec = Math.Round(tempTotalTime) % 60;
+
+        if (0 < min)
+        {
+            ingameTimeText.text = min.ToString() + ":" + tempSec;
+        }
+        else
+        {
+            ingameTimeText.text = Math.Round(gameTimer.GetTime()).ToString();
+        }
+        
+
+        //ingameTimeText.text = min.ToString() + ":" + sec.ToString();
     }
 
     private void Player_OnCoinPickup(object sender, EventArgs e)

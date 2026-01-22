@@ -31,7 +31,8 @@ public class GameManager : Singleton<GameManager>
     void Awake()
     {
         base.Awake();
-        GameState = State.WatintingToStart;
+        //GameState = State.WatintingToStart;
+        GameState = State.GameStart;
     }
 
     void Start()
