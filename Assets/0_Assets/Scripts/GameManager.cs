@@ -3,7 +3,7 @@ using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 //
-using Utilities;
+
 
 public enum State
 {
@@ -27,26 +27,39 @@ public class GameManager : Singleton<GameManager>
     //
     public State GameState { get; private set; }
 
+    //
+    void Awake()
+    {
+        base.Awake();
+        GameState = State.WatintingToStart;
+    }
+
     void Start()
     {
-            
+
     }
 
     public void OnGameStart()
     {
-        GameState = State.GameStart;
-        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
+        SetState(State.GameStart);
+        
     }
 
     public void OnGamePause()
     {
-        GameState = State.GamePause;
-        OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
+        
+        SetState(State.GamePause);
     }
 
     public void OnGameOver()
     {
-        GameState = State.GameOver;
+        
+        SetState(State.GameOver);
+    }
+
+    private void SetState(State newState)
+    {
+        GameState = newState;
         OnStateChanged?.Invoke(this, new OnStateChangedEventArgs {state = GameState});
     }
 

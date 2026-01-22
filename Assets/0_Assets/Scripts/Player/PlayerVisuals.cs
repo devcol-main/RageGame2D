@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -11,12 +12,16 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem downThrusterPS;
     [SerializeField] private ParticleSystem leftThrusterPS;
     [SerializeField] private ParticleSystem rightThrusterPS;
+    
+    [Space(5f)]
+    [SerializeField] private ParticleSystem explotionPS;
 
     
 
     void Awake()
     {
         SetAllThrusterPS(false);
+        //explotionPS.transform.rotation = new Vector3
         
     }
     void Start()
@@ -32,6 +37,9 @@ public class PlayerVisuals : MonoBehaviour
         playerController.OnBeforeForce += OnBeforeForce;
 
         playerController.OnBeforeActionForce += OnBeforeActionForce;
+
+        //
+        Player.Instance.OnCollision += OnCollision;
     }
 
     void OnDisable()
@@ -85,5 +93,13 @@ public class PlayerVisuals : MonoBehaviour
     {
         ParticleSystem.EmissionModule emissionModule = ps.emission;
         emissionModule.enabled = enabled; 
+    }
+    //
+    private void OnCollision()
+    {
+        // explotionPS rotation seted as -90,0,0, but when Instantiate it resets so set rotation in scirpt again
+        // you can prevent by set ps in child of object. but i rather do it this way
+        //Instantiate(explotionPS, transform.position, Quaternion.identity);
+        Instantiate(explotionPS, transform.position, Quaternion.Euler(-90, 0, 0));
     }
 }

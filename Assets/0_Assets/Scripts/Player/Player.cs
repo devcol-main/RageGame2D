@@ -16,7 +16,14 @@ public class Player : MonoBehaviour
 
     //public event EventHandler<OnLandedEventArgs> 
 
+    // public event EventHandler<OnCollisionEventArgs> OnCollision;
+    // public class OnCollisionEventArgs : EventArgs
+    // {
+        
+    // }
 
+    public Action OnCollision;
+     
 
     
     //[Header("Player Stats")]
@@ -28,13 +35,15 @@ public class Player : MonoBehaviour
     //public float brakingStrength = 10f;
 
     [Header("References")]
-    [SerializeField] private Collider2D col;
+    [SerializeField] private Collider2D playerCol;
+
 
 
 
     void Awake()
     {
-        col = GetComponent<Collider2D>();   
+        playerCol = GetComponent<Collider2D>();
+        
 
         Instance = this;
 
@@ -60,11 +69,17 @@ public class Player : MonoBehaviour
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
     {
-        Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
+        //Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
 
-         if (e.state == State.GameStart)
+        if (e.state == State.GameStart)
         {
             this.gameObject.SetActive(true);
+            // Appear effects
+
+        }
+        else if (e.state == State.GameOver)
+        {
+            GameOver();
         }
     }
 
@@ -88,6 +103,25 @@ public class Player : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        //Debug.Log($"OnCollisionEnter2D with {col}");
+
+        //
+        //GameManager.Instance.OnGameOver();
+        if (!col.gameObject.TryGetComponent(out CollideableObject collideableObject))
+        {
+            //Debug.Log("!collideableObject");
+            OnCollision?.Invoke();
+            GameManager.Instance.OnGameOver();
+        }
+
+        if (col.gameObject.TryGetComponent(out CollideableObject collideable))
+        {
+            //Debug.Log(" collideable");
+        }
+
+        //OnCollision?.Invoke();
+
+        
     
     }
 
@@ -123,6 +157,11 @@ public class Player : MonoBehaviour
 
         
         
+    }
+
+    private void GameOver()
+    {
+        this.gameObject.SetActive(false);
     }
 
 

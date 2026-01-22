@@ -23,7 +23,23 @@ public class IngameUI : MonoBehaviour
     void Start()
     {
         Player.Instance.OnCoinPickup += Player_OnCoinPickup;
-        gameTimer.Start();
+        GameManager.Instance.OnStateChanged += OnStateChaned;
+
+        
+    }
+
+    private void OnStateChaned(object sender, GameManager.OnStateChangedEventArgs e)
+    {
+        if (e.state == State.GameStart)
+        {
+            gameTimer.Start();
+        }
+
+        if (e.state == State.GameOver)
+        {
+            gameTimer.Stop();
+        }
+   
     }
 
     void OnEnable()

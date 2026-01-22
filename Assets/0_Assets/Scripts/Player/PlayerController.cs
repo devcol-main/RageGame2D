@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
     {
-        Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
+        //Debug.Log($"Player OnGameStateChanged : {e} | {e.state}" );
 
         if (e.state == State.WatintingToStart)
         {
