@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 currentVelocity;
     [SerializeField] private float currentAngularVelocity;
 
+    public bool isJumpKeyPress;
+
     void Awake()
     {
         // References
@@ -45,6 +47,46 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
     }
+
+    //
+
+    void OnEnable()
+    {
+
+        IR.Jump += OnJump;
+
+        IR.Jump += isJumpPressed =>
+        {
+            if (isJumpPressed)
+            {
+                Debug.Log("OnEnable isJumpPressed true" ); 
+            }
+            else
+            {
+                Debug.Log("OnEnable isJumpPressed false" ); 
+            }
+        };
+
+    }
+
+    void OnDisable()
+    {
+        
+    }
+
+    void OnJump(bool performed)
+    {
+        if (performed)
+        {
+            Debug.Log("OnJump from : " + this.gameObject.name  + "| performed: " + performed); 
+
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = 0f;
+        }
+        
+    }
+
+
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
     {
@@ -70,7 +112,7 @@ public class PlayerController : MonoBehaviour
         {
             Movements(); 
         }
-            
+          
 
     }
 
