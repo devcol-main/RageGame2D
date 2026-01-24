@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public event EventHandler OnDownForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnRightForce;
-    public event EventHandler OnBeforeForce;
+    //public event EventHandler OnBeforeForce;
     public Action OnBeforeActionForce;
 
     InputReader IR => InputReader.Instance;
@@ -33,7 +33,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 currentVelocity;
     [SerializeField] private float currentAngularVelocity;
 
-    public bool isJumpKeyPress;
+    [SerializeField] private float gamepadDeadzone = 0.4f;
+
+    // =====
+    public Vector2 moveInput;
+    // =====
 
     void Awake()
     {
@@ -48,26 +52,21 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
     }
 
-    //
+    // =====
 
     void OnEnable()
     {
 
         IR.Jump += OnJump;
 
-        IR.Jump += isJumpPressed =>
-        {
-            if (isJumpPressed)
-            {
-                Debug.Log("OnEnable isJumpPressed true" ); 
-            }
-            else
-            {
-                Debug.Log("OnEnable isJumpPressed false" ); 
-            }
-        };
+        //IR.Move += OnMove;
+
+        IR.Move += direction => moveInput = direction;
+
 
     }
+
+    
 
     void OnDisable()
     {
@@ -86,7 +85,7 @@ public class PlayerController : MonoBehaviour
         
     }
 
-
+    // =====
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
     {
@@ -105,11 +104,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        OnBeforeForce?.Invoke(this, EventArgs.Empty);
+        //OnBeforeForce?.Invoke(this, EventArgs.Empty);
         OnBeforeActionForce?.Invoke();        
         
         if (0 < player.CurrentFuel || player.IsInfiniteFuel)
         {
+            
             Movements(); 
         }
           
@@ -118,12 +118,13 @@ public class PlayerController : MonoBehaviour
 
     private void Movements()
     {
-        if (IR.IsUpPressed())
+        
+        if (IR.IsUpPressed() || IR.GetMovementInputVector2().y > gamepadDeadzone )
         {
             ForceDirection(Direction.DOWN);
         }
 
-        if (IR.IsDownPressed())
+        if (IR.IsDownPressed() || IR.GetMovementInputVector2().y < -gamepadDeadzone )
         {
             ForceDirection(Direction.UP);
 
@@ -133,12 +134,12 @@ public class PlayerController : MonoBehaviour
         //     toggleDown = false;
         // }
 
-        if (IR.IsLeftPressed())
+        if (IR.IsLeftPressed() || IR.GetMovementInputVector2().x < -gamepadDeadzone )
         {
             ForceDirection(Direction.RIGHT);
         }
 
-        if (IR.IsRightPressed())
+        if (IR.IsRightPressed() || IR.GetMovementInputVector2().x > gamepadDeadzone )
         {
             ForceDirection(Direction.LEFT);
         }

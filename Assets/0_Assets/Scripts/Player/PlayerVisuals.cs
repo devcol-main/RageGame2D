@@ -34,7 +34,7 @@ public class PlayerVisuals : MonoBehaviour
         playerController.OnRightForce += OnRightForce;
         
         //
-        playerController.OnBeforeForce += OnBeforeForce;
+        //playerController.OnBeforeForce += OnBeforeForce;
 
         playerController.OnBeforeActionForce += OnBeforeActionForce;
 
@@ -52,11 +52,11 @@ public class PlayerVisuals : MonoBehaviour
         SetAllThrusterPS(false);
     }
 
-    private void OnBeforeForce(object sender, EventArgs e)
-    {
+    // private void OnBeforeForce(object sender, EventArgs e)
+    // {
        
-        SetAllThrusterPS(false);
-    }
+    //     SetAllThrusterPS(false);
+    // }
 
     private void OnRightForce(object sender, EventArgs e)
     {
