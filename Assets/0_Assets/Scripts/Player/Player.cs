@@ -57,8 +57,7 @@ public class Player : MonoBehaviour
     }
 
     void Start()
-    {
-        
+    {        
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
 
     }
@@ -75,7 +74,8 @@ public class Player : MonoBehaviour
         }
         else if (e.state == State.GameOver)
         {
-            GameOver();
+            // cause error
+            //GameOver();
         }
     }
 
@@ -107,6 +107,9 @@ public class Player : MonoBehaviour
         {
             //Debug.Log("!collideableObject");
             OnCollision?.Invoke();
+
+            GameOver();
+
             GameManager.Instance.OnGameOver();
         }
 
@@ -158,6 +161,7 @@ public class Player : MonoBehaviour
     private void GameOver()
     {
         this.gameObject.SetActive(false);
+        
     }
 
 

@@ -4,20 +4,31 @@ using UnityEngine.SceneManagement;
 
 public enum Scene
 {
-    MenuScene,
+    MainMenuScene,
     GameScene,
     NoobyScene
 }
-public class SceneLoader : Singleton<SceneLoader>
+public static class SceneLoader
 {
-    public void RestartScene()
+    public static void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void LoadMenuScene()
+    public static void LoadScene(Scene scene)
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(scene.ToString());
+    }
+
+    public static void LoadMainMenuScene()
+    {
+        LoadScene(Scene.MainMenuScene);
+    }
+
+
+    public static void QuitApplication()
+    {
+        GameManager.Instance.OnApplicationQuit();
     }
 
     

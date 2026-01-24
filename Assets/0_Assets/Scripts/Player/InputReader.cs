@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -11,10 +12,18 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
 
     private InputActions inputActions;
 
-    //
+    // =====
     public event UnityAction<bool> Jump = delegate { };   
 
-    public bool IsJumpKeyPressed => inputActions.Player.Jump.IsPressed();
+    // option
+    //public bool IsJumpKeyPressed => inputActions.Player.Jump.IsPressed();
+
+    public event UnityAction<Vector2> Move = delegate{};
+    //public Vector2 Direction;
+    //public Vector2 Direction => inputActions.Player.Move.ReadValue<Vector2>();
+
+    public EventHandler OnMenuButtonPressed;
+    // ======
 
     private void Awake()
     {
@@ -23,12 +32,21 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
         inputActions = new InputActions();
         inputActions.Enable();
 
-
+        // =====
         inputActions.Player.SetCallbacks(this);        
+
+        //
+        inputActions.Player.Menu.performed += Menu_performed;
 
     }
 
+    private void Menu_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        OnMenuButtonPressed?.Invoke(this, EventArgs.Empty);
+    }
 
+
+    // ===== =====
     public void OnJump(InputAction.CallbackContext context)
     {
         Debug.Log("OnJump from : " + this.gameObject.name + " | context: " + context.phase ); 
@@ -44,8 +62,18 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
         }
     }
 
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        //
+        //Debug.Log("OnMove from : " + this.gameObject.name + " | context: " + context.phase ); 
+        Move.Invoke(context.ReadValue<Vector2>());    
 
-//
+
+
+    }
+
+
+   // ===== =====
     public bool IsUpPressed()
     {        
         return inputActions.Player.Up.IsPressed();
@@ -67,6 +95,11 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
         return inputActions.Player.Right.IsPressed();
     }
 
+    public Vector2 GetMovementInputVector2()
+    {
+        return inputActions.Player.Movement.ReadValue<Vector2>();
+    }
+
     // public Vector2 GetMovementInputVector2()
     // {
     //     return inputActions.Player.Movement.ReadValue<Vector2>();
@@ -78,7 +111,7 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
         inputActions.Disable();
     }
 
-
+    // ===== =====
 
     public void OnUp(InputAction.CallbackContext context)
     {
@@ -100,7 +133,12 @@ public class InputReader : MonoBehaviour, InputActions.IPlayerActions
         //
     }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMovement(InputAction.CallbackContext context)
+    {
+        //
+    }
+
+    public void OnMenu(InputAction.CallbackContext context)
     {
         //
     }
