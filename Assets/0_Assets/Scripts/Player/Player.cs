@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     public event EventHandler OnCoinPickup;
     //public event EventHandler<OnLandedEventArgs> OnCoinPickup;
     //public class OnLandedEventArgs : EventArgs {public int score;}   
-        
+    public event EventHandler OnFuelPickup;
+
     public event EventHandler OnConsumingFuel;
 
     //public event EventHandler<OnLandedEventArgs> 
@@ -22,10 +23,10 @@ public class Player : MonoBehaviour
         
     // }
 
-    public Action OnCollision;
-     
-
     
+    public Action OnCrash;
+
+     
     //[Header("Player Stats")]
     
     public bool IsInfiniteFuel { get; private set; }
@@ -106,11 +107,11 @@ public class Player : MonoBehaviour
         if (!col.gameObject.TryGetComponent(out CollideableObject collideableObject))
         {
             //Debug.Log("!collideableObject");
-            OnCollision?.Invoke();
+            OnCrash?.Invoke();
 
             GameOver();
 
-            GameManager.Instance.OnGameOver();
+            //GameManager.Instance.OnGameOver();
         }
 
         if (col.gameObject.TryGetComponent(out CollideableObject collideable))
@@ -141,6 +142,8 @@ public class Player : MonoBehaviour
 
                 // destory only when player absorb fuel
                 fuel.SelfDestruction();
+
+                OnFuelPickup?.Invoke(this, EventArgs.Empty);
             }                       
             
         }

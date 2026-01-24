@@ -1,16 +1,22 @@
 using UnityEngine;
 
+public enum Mixer
+{
+    MainMixer,
+    BGM,
+    SFX,
+    BGM_Music, BGM_Environment,
+    SFX_Player, SFX_Menu, SFX_Enemy, SFX_Obstacle,
+
+
+}
 public class SoundManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Player.Instance.OnFuelPickup +=  OnFuelPickup;
+        // Player.Instance.OnCoinPickup +=  OnCoinPickup;
+        // Player.Instance.OnCrash      +=  OnCrash;
     }
 }

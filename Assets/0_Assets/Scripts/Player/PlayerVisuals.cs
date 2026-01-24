@@ -39,7 +39,7 @@ public class PlayerVisuals : MonoBehaviour
         playerController.OnBeforeActionForce += OnBeforeActionForce;
 
         //
-        Player.Instance.OnCollision += OnCollision;
+        Player.Instance.OnCrash += OnCollision;
     }
 
     void OnDisable()
