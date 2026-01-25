@@ -45,7 +45,7 @@ public class SFXSO : ScriptableObject
     // [Header("Obstacle SFX")]
     // public AudioClip[] obstacle;
 
-    public void Initiate()
+    public void Initialize()
     {
         
     }
