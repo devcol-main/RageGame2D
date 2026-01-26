@@ -14,14 +14,14 @@ public class PlayerController : MonoBehaviour
     public event EventHandler OnRightForce;
     //public event EventHandler OnBeforeForce;
     public Action OnBeforeActionForce;
-
+    
     InputReader IR => InputReader.Instance;
 
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private Rigidbody2D rb;
     
-
+    
     [Header("Movements")]
     [SerializeField] private float force = 150f;
     //[SerializeField] private float extraForce;
@@ -38,9 +38,11 @@ public class PlayerController : MonoBehaviour
     // =====
     public Vector2 moveInput;
     // =====
+    
 
     void Awake()
     {
+        
         // References
         player = GetComponent<Player>();  
         rb = GetComponent<Rigidbody2D>();  
@@ -50,6 +52,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
+        
     }
 
     // =====
@@ -63,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         IR.Move += direction => moveInput = direction;
 
-
+        
     }
 
     
@@ -107,12 +110,7 @@ public class PlayerController : MonoBehaviour
         //OnBeforeForce?.Invoke(this, EventArgs.Empty);
         OnBeforeActionForce?.Invoke();        
         
-        if (0 < player.CurrentFuel || player.IsInfiniteFuel)
-        {
-            
-            Movements(); 
-        }
-          
+        Movements();       
 
     }
 
@@ -147,7 +145,10 @@ public class PlayerController : MonoBehaviour
 
     private void ForceDirection(Direction direction)
     {
-        player.ConsumingFuel();
+        if(!player.ConsumingFuel())
+        {
+            return;
+        }
 
         switch (direction)
         {

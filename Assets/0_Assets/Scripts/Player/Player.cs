@@ -15,6 +15,12 @@ public class Player : MonoBehaviour
 
     public event EventHandler OnConsumingFuel;
 
+    // only once
+    public event EventHandler OnFuelJustEmpted;
+    
+    // every time when player tries to use fuel on empty fuel
+    public event EventHandler OnFuelEmpty;
+
     //public event EventHandler<OnLandedEventArgs> 
 
     // public event EventHandler<OnCollisionEventArgs> OnCollision;
@@ -25,6 +31,7 @@ public class Player : MonoBehaviour
 
     
     public Action OnCrash;
+    
 
      
     //[Header("Player Stats")]
@@ -38,9 +45,16 @@ public class Player : MonoBehaviour
     [Header("References")]
     [SerializeField] private Collider2D playerCol;
 
+// ===== =====
+    [Header("=== FOR DEBUG ===")]
+    [SerializeField] private bool setInfiniteFuel;
 
+    void Update()
+    {
+        IsInfiniteFuel = setInfiniteFuel;
+    }
 
-
+    // ===== =====
     void Awake()
     {
         playerCol = GetComponent<Collider2D>();
@@ -80,22 +94,34 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ConsumingFuel()
+    public bool ConsumingFuel()
     {
-        
+        if(0 >= CurrentFuel && !IsInfiniteFuel)
+        {
+            OnFuelEmpty?.Invoke(this, EventArgs.Empty);
+            return false;
+        }
+
 
         if (!IsInfiniteFuel)
         {
-            CurrentFuel -= FuelConsumptionAmount * Time.fixedDeltaTime;
-            // to prvent going to negative
-            if (CurrentFuel <= 0)
-            {
-                CurrentFuel = 0;
-            }
-
             OnConsumingFuel?.Invoke(this, EventArgs.Empty);
 
+            CurrentFuel -= FuelConsumptionAmount * Time.fixedDeltaTime;
+            
+            // to prvent going to negative
+            if (0 >= CurrentFuel)
+            {
+                
+                CurrentFuel = 0;
+                OnFuelJustEmpted?.Invoke(this, EventArgs.Empty);
+
+            }
+
         }
+
+        return true;
+
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -127,7 +153,8 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        
+
+        #region  Fuel
         // contect with fuel
         if (col.gameObject.TryGetComponent(out Fuel fuel))
         {         
@@ -147,6 +174,10 @@ public class Player : MonoBehaviour
             }                       
             
         }
+
+
+        #endregion
+
 
         if(col.gameObject.TryGetComponent(out Coin coin))
         {

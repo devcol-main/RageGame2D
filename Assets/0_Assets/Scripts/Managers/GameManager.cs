@@ -44,18 +44,18 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        InputReader.Instance.OnMenuButtonPressed += OnMenuButtonPressed;
-        Player.Instance.OnCrash += OnCrash;
+        InputReader.Instance.OnMenuButtonPressed += InputReader_OnMenuButtonPressed;
+        Player.Instance.OnCrash += Player_OnCrash;
     }
 
-    private void OnCrash()
+    private void Player_OnCrash()
     {
         // if player life == 0
         //Player.Instance.
         OnGameOver();
     }
 
-    private void OnMenuButtonPressed(object sender, EventArgs e)
+    private void InputReader_OnMenuButtonPressed(object sender, EventArgs e)
     {
         PauseResumeGame();
     }
