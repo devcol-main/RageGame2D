@@ -69,26 +69,25 @@ public enum SFX_Player
 
 // }
 
+// must have [System.Serializable] to see at inspector
 [System.Serializable]
-public class SFXAudioClip : PlayerSFXAudioClip
+public class SFX_PlayerSound
 {
+    public SFX_Player soundName;
+}
+
+
+[System.Serializable]
+public class PlayerSFXAudioClip : SFX_PlayerSound
+{
+    public AudioClip audioClip;
+    public bool loop = false;
     public bool playOnAwake;
     public float volume;
 }
 
 
-// must have [System.Serializable] to see at inspector
-//[System.Serializable]
-public class PlayerSFXAudioClip
-{
-    public SFX_Player soundName;
-    public AudioClip audioClip;
 
-    public bool loop = false;
-
-    
-
-}
 
 
 // ===== =====
@@ -98,7 +97,21 @@ public class SFX_PlayerSO : ScriptableObject
     public SFX_Group sfx_Group;
     public AudioMixerGroup audioMixerGroup;
     
-    public SFXAudioClip[] playerSFXAudioClipArray;
+    public PlayerSFXAudioClip[] playerSFXAudioClipArray;
+
+    public bool Test = true;
+
+    public void Start()
+    {
+        if(Test)
+        {
+            sfx_Group = SFX_Group.UI;
+        }
+        else
+        {
+            sfx_Group = SFX_Group.Obstacle;
+        }
+    }
     
 
 }
