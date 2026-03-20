@@ -87,11 +87,8 @@ public class PlayerSFXAudioClip : SFX_PlayerSound
 }
 
 
-
-
-
 // ===== =====
-[CreateAssetMenu(fileName = "SFX_Player_ScriptableObject", menuName = "SO/Auidios/SFX_PlayerSO")]
+[CreateAssetMenu(fileName = "SFX_Player_ScriptableObject", menuName = "SO/Audios/SFX_PlayerSO")]
 public class SFX_PlayerSO : ScriptableObject
 {   
     public SFX_Group sfx_Group;

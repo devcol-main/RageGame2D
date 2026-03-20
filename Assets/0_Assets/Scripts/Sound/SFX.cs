@@ -19,14 +19,14 @@ public class SFX : MonoBehaviour
     private void Player_OnConsumingFuel(object sender, EventArgs e)
     {
         //
-        Debug.Log("from SFX.cs Player_OnConsumingFuel");
+        // Debug.Log("from SFX.cs Player_OnConsumingFuel");
         
 
 
     }
     private void Player_OnFuelEmpty(object sender, EventArgs e)
     {
-        Debug.Log("from SFX.cs Player_OnFuelEmpty");
+        // Debug.Log("from SFX.cs Player_OnFuelEmpty");
     }
 
     
@@ -34,7 +34,7 @@ public class SFX : MonoBehaviour
     private void Player_OnFuelJustEmpted(object sender, EventArgs e)
     {
         //
-        Debug.Log("from SFX.cs Player_OnFuelJustEmpted");
+        // Debug.Log("from SFX.cs Player_OnFuelJustEmpted");
         //
         GameObject soundGameObject = new GameObject();
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();

@@ -107,7 +107,7 @@ public class GameManager : Singleton<GameManager>
 
     public void OnApplicationQuit()
     {
-        Debug.Log("from GM: OnApplicationQuit");
+        //Debug.Log("from GM: OnApplicationQuit");
 
         Application.Quit();
     }
