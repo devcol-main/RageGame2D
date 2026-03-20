@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
     public State GameState { get; private set; }
 
     //
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         //GameState = State.WatintingToStart;

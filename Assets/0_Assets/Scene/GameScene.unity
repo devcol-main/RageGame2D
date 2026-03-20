@@ -978,6 +978,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 898a12f90ec4a41769eff36d4d5f2651, type: 2}
   - {fileID: 11400000, guid: fa2f5eab9d6dd4d5f8b1b81e130edf30, type: 2}
   audioSourceAmbient: {fileID: 545740309}
+  bgmAmbientSOArray:
+  - {fileID: 11400000, guid: 8ddd082b313b34494b636eb13a6cd667, type: 2}
+  - {fileID: 11400000, guid: 3b36d8098053f4cb5b39814b2b66a7e3, type: 2}
+  - {fileID: 11400000, guid: 129e83717a70a4c8d9e90223d4bb549d, type: 2}
+  - {fileID: 11400000, guid: 3826af5b0b30243399a53bbbf9d38bff, type: 2}
+  - {fileID: 11400000, guid: 0d4e8d2ca4d524c2ba6504e8b9e11425, type: 2}
+  - {fileID: 11400000, guid: 15f62a937581644e28108d58dc463922, type: 2}
+  - {fileID: 11400000, guid: c4b1a53d18a94481394df838d06e9b8c, type: 2}
 --- !u!1 &492138559
 GameObject:
   m_ObjectHideFlags: 0
@@ -4869,7 +4877,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298902862}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!198 &1310679787 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5626142120532356289, guid: 491bc9f68306cad40a65002e796205eb, type: 3}

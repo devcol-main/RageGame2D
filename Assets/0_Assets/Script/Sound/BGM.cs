@@ -6,17 +6,19 @@ public class BGM : MonoBehaviour
     [Header("BGM_MUSIC")]
     [SerializeField] private AudioSource audioSourceMusic;
 
-    [SerializeField] private BGM_Music_SO[] bgmMusicSOArray;
+    [SerializeField] private BGMMusicSO[] bgmMusicSOArray;
 
 
     [Header("BGM_AMBIENT")]
     [SerializeField] private AudioSource audioSourceAmbient;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private BGMAmbientSO[] bgmAmbientSOArray;
     
     public float PlayBGMMusic(BGM_Music_Name musicName)
     {
-        //audioSourceMusic.clip = bgmMusicSO.bgmMusicAudioClip.audioClip;
-        //audioSourceMusic.Play();
+        //bgmAudioSource.clip = bgmMusicSO.bgmMusicAudioClip.audioClip;
+        //bgmAudioSource.Play();
+
+        AudioSource bgmAudioSource = audioSourceMusic;
 
         float length = 0f;
 
@@ -24,18 +26,55 @@ public class BGM : MonoBehaviour
         {
             if (bgm.soundName == musicName)
             {
-                audioSourceMusic.outputAudioMixerGroup = bgm.audioMixerGroup;
-                audioSourceMusic.clip = bgm.audioClip;
+                bgmAudioSource.outputAudioMixerGroup = bgm.audioMixerGroup;
+                bgmAudioSource.clip = bgm.audioClip;
 
-                audioSourceMusic.loop = bgm.loop;
-                audioSourceMusic.playOnAwake = bgm.playOnAwake;
+                bgmAudioSource.loop = bgm.loop;
+                bgmAudioSource.playOnAwake = bgm.playOnAwake;
 
-                audioSourceMusic.volume = bgm.volume;
-                audioSourceMusic.pitch = bgm.pitch;
-                audioSourceMusic.panStereo = bgm.panStereo;
-                audioSourceMusic.spatialBlend = bgm.spatialBlend;
+                bgmAudioSource.volume = bgm.volume;
+                bgmAudioSource.pitch = bgm.pitch;
+                bgmAudioSource.panStereo = bgm.panStereo;
+                bgmAudioSource.spatialBlend = bgm.spatialBlend;
 
-                audioSourceMusic.Play();
+                bgmAudioSource.Play();
+
+                length = bgm.audioClip.length;
+            }
+        }
+
+        //Debug.Log("PlayBGMMusic");
+
+        return length;
+    }
+
+    public float PlayBGMAmbient(BGM_Ambient_Name musicName)
+    {
+        //bgmAudioSource.clip = bgmMusicSO.bgmMusicAudioClip.audioClip;
+        //bgmAudioSource.Play();
+
+        AudioSource bgmAudioSource = audioSourceAmbient;
+
+        float length = 0f;
+
+        foreach (var bgm in bgmAmbientSOArray)
+        {
+            if (bgm.soundName == musicName)
+            {
+                bgmAudioSource.outputAudioMixerGroup = bgm.audioMixerGroup;
+                bgmAudioSource.clip = bgm.audioClip;
+
+                bgmAudioSource.loop = bgm.loop;
+                bgmAudioSource.playOnAwake = bgm.playOnAwake;
+
+                bgmAudioSource.volume = bgm.volume;
+                bgmAudioSource.pitch = bgm.pitch;
+                bgmAudioSource.panStereo = bgm.panStereo;
+                bgmAudioSource.spatialBlend = bgm.spatialBlend;
+
+                bgmAudioSource.Play();
+
+                
 
                 length = bgm.audioClip.length;
             }

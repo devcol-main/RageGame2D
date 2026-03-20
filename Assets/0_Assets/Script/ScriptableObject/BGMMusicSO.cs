@@ -1,5 +1,5 @@
 using System;
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -13,10 +13,7 @@ public enum BGM_Music_Name
     Part3,
 }
 
-public enum BGM_Ambient_Name
-{
-    
-}
+
 
 #endregion
 
@@ -42,8 +39,8 @@ public enum BGM_Ambient_Name
 // }
 
 
-[CreateAssetMenu(fileName = "BGMMusic_SO", menuName = "SO/Audios/BGMSO")]
-public class BGM_Music_SO : ScriptableObject
+[CreateAssetMenu(fileName = "BGMMusic_SO", menuName = "SO/Audios/BGM_Music")]
+public class BGMMusicSO : ScriptableObject
 {
     public AudioMixerGroup audioMixerGroup;
     public BGM_Music_Name soundName;
@@ -69,8 +66,3 @@ public class BGM_Music_SO : ScriptableObject
 
 // ===
 
-#region BGM_Ambient
-
-
-
-#endregion
