@@ -1,9 +1,8 @@
-using JetBrains.Annotations;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
+
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.PlayerLoop;
+
 
 #region Enums
 public enum SFX_Group
@@ -55,6 +54,9 @@ public enum SFX_Player
     
 //     // 2d = 0f, 3d = 1f;
 //     public float spatialBlend = 1f;
+//controls the blend between a fully 2D sound and a fully 3D sound.
+        // fully 2d -> 0 / fully 3d -> 1
+        //audioSource.spatialBlend = (is2DSound == true) ? 0 : 1;
 
 //     public AudioRolloffMode rolloffMode = AudioRolloffMode.Logarithmic; //AudioRolloffMode.Linear;
 
@@ -83,7 +85,9 @@ public class PlayerSFXAudioClip : SFX_PlayerSound
     public AudioClip audioClip;
     public bool loop = false;
     public bool playOnAwake;
-    public float volume;
+
+    [Range(0f,1f)] 
+    public float volume = 0.8f;
 }
 
 
@@ -96,20 +100,12 @@ public class SFX_PlayerSO : ScriptableObject
     
     public PlayerSFXAudioClip[] playerSFXAudioClipArray;
 
-    public bool Test = true;
-
     public void Start()
     {
-        if(Test)
-        {
-            sfx_Group = SFX_Group.UI;
-        }
-        else
-        {
-            sfx_Group = SFX_Group.Obstacle;
-        }
+        
     }
-    
+
+    //audioMixerGroup = SoundManager.Instance.audioMixer.FindMatchingGroups("SFX")[0];    
 
 }
 

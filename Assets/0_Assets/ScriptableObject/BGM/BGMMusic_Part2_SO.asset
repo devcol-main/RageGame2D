@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7bcc69bff584a5eb9ac008856a1db8, type: 3}
+  m_Name: BGMMusic_Part2_SO
+  m_EditorClassIdentifier: Assembly-CSharp::BGM_Music_SO
+  audioMixerGroup: {fileID: -328290123000628732, guid: f14687af83f294d0199cd153505e56af, type: 2}
+  soundName: 2
+  audioClip: {fileID: 8300000, guid: a79ea860557d8413d9c5d45795bf34bf, type: 3}
+  loop: 1
+  playOnAwake: 1
+  volume: 0.5
+  pitch: 1
+  panStereo: 0
+  spatialBlend: 0

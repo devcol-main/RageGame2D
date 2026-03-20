@@ -49,10 +49,7 @@ public class Player : MonoBehaviour
     [Header("=== FOR DEBUG ===")]
     [SerializeField] private bool setInfiniteFuel;
 
-    void Update()
-    {
-        IsInfiniteFuel = setInfiniteFuel;
-    }
+    
 
     // ===== =====
     void Awake()
@@ -75,6 +72,13 @@ public class Player : MonoBehaviour
     {        
         GameManager.Instance.OnStateChanged += OnGameStateChanged;
 
+        SoundManager.Instance.SwitchAudioListener(false);    
+
+    }
+
+    void Update()
+    {
+        IsInfiniteFuel = setInfiniteFuel;
     }
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
@@ -194,6 +198,8 @@ public class Player : MonoBehaviour
 
     private void GameOver()
     {
+        SoundManager.Instance.SwitchAudioListener(true);        
+
         this.gameObject.SetActive(false);
         
     }

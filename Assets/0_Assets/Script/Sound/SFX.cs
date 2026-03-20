@@ -36,8 +36,8 @@ public class SFX : MonoBehaviour
         //
         // Debug.Log("from SFX.cs Player_OnFuelJustEmpted");
         //
-        GameObject soundGameObject = new GameObject();
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        //GameObject soundGameObject = new GameObject();
+        //AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         
         // foreach (var sfx in sfx_PlayerSO.playerSFXAudioClipArray)
         // {

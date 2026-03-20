@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Obstacle
+  m_Name: OBSTACLE
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 4b41f020f5cf44752bfc2163272d86d1
   m_Children: []
@@ -121,7 +121,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Music
+  m_Name: MUSIC
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 207b6a262b07b4e9b9611cb6b37ec2bb
   m_Children: []
@@ -216,7 +216,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Enemy
+  m_Name: ENEMY
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 6266d5c129d874adba504cf38fea3cd3
   m_Children: []
@@ -277,7 +277,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: PLAYER
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 58bf299f87f05485aa77f772fd8fc8f6
   m_Children: []
@@ -296,7 +296,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Environment
+  m_Name: AMBIENT
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 199a657018e014fe9815549605a65c10
   m_Children: []
