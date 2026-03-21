@@ -56,11 +56,11 @@ public class BGMMusicSO : ScriptableObject
     public float spatialBlend = 0f;
 
 
-    void OnEnable()
-    {
-        audioMixerGroup = SoundManager.Instance.GetAudioMixer.FindMatchingGroups(
-            GlobalString.AudioMixer.MUSIC)[0];    
-    }
+    // void OnEnable()
+    // {
+    //     audioMixerGroup = SoundManager.Instance.GetAudioMixer.FindMatchingGroups(
+    //         GlobalString.AudioMixer.MUSIC)[0];    
+    // }
 }
 #endregion
 

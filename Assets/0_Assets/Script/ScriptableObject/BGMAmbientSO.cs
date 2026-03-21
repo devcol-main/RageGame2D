@@ -24,11 +24,11 @@ public class BGMAmbientSO : ScriptableObject
     public float spatialBlend = 0f;
 
 
-    void OnEnable()
-    {
-        audioMixerGroup = SoundManager.Instance.GetAudioMixer.FindMatchingGroups(
-            GlobalString.AudioMixer.AMBIENT)[0];    
-    }
+    // void OnEnable()
+    // {
+    //     audioMixerGroup = SoundManager.Instance.GetAudioMixer.FindMatchingGroups(
+    //         GlobalString.AudioMixer.AMBIENT)[0];    
+    // }
 }
 
 
