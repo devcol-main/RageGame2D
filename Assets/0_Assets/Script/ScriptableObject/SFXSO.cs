@@ -100,10 +100,7 @@ public class SFX_PlayerSO : ScriptableObject
     
     public PlayerSFXAudioClip[] playerSFXAudioClipArray;
 
-    public void Start()
-    {
-        
-    }
+    
 
     //audioMixerGroup = SoundManager.Instance.audioMixer.FindMatchingGroups("SFX")[0];    
 

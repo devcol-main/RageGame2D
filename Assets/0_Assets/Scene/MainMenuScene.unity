@@ -574,12 +574,12 @@ GameObject:
   - component: {fileID: 379846361}
   - component: {fileID: 379846360}
   m_Layer: 5
-  m_Name: Stars (1)
+  m_Name: BigStars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &379846359
 RectTransform:
   m_ObjectHideFlags: 0
