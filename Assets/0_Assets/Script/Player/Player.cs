@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     
     public Action OnCrash;
+    //public Action On
     
 
      
@@ -44,6 +45,7 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Collider2D playerCol;
+    
 
 // ===== =====
     [Header("=== FOR DEBUG ===")]

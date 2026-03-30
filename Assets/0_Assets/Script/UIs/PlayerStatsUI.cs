@@ -7,23 +7,46 @@ using UnityEngine.UI;
 public class PlayerStatsUI : MonoBehaviour
 {
     
-    [Header("Reference")]
+    [Header("Fuel")]
     [SerializeField] private TextMeshProUGUI fuelAmountText;
     [SerializeField] private Image fuelImage;
 
-    [Header("Colors")]
     [SerializeField] private Color greenColor;
     [SerializeField] private Color yellowColor;
     [SerializeField] private Color redColor;
-    
-    void Start()
-    {
-        Player.Instance.OnConsumingFuel += Player_OnConsumingFuel;
 
-        fuelAmountText.text = Player.Instance.CurrentFuel + " / " + Player.Instance.MaxFuel;
+    [Header("Speed")]
+    [SerializeField] private TextMeshProUGUI speedText;
+
+    //[Header("Player")][SerializeField] 
+    private PlayerController playerController;
+
+    void Awake()
+    {
+        playerController = FindAnyObjectByType<PlayerController>();
     }
 
-    private void Player_OnConsumingFuel(object sender, EventArgs e)
+    void Start()
+    {
+        Player.Instance.OnConsumingFuel += FuelColorChange;
+        Player.Instance.OnConsumingFuel += FuelAmountChange;
+
+        fuelAmountText.text = Player.Instance.CurrentFuel + " / " + Player.Instance.MaxFuel;
+
+        
+
+        //playerController = GetComponent<PlayerController>();   
+
+        if(null == playerController)
+        {
+            playerController = FindAnyObjectByType<PlayerController>();
+            Debug.LogError("null == playerController from " + this.name);
+        }
+        
+
+    }
+
+    private void FuelColorChange(object sender, EventArgs e)
     {        
         // image
         float fuelNormalize = (Player.Instance.CurrentFuel / Player.Instance.MaxFuel);    
@@ -45,11 +68,30 @@ public class PlayerStatsUI : MonoBehaviour
             fuelImage.color      = redColor;
         }
 
+        //fuelImage.fillAmount = fuelNormalize;
+        //fuelAmountText.text = Mathf.Round(Player.Instance.CurrentFuel) + " / " + Player.Instance.MaxFuel;
+    }
+
+    private void FuelAmountChange(object sender, EventArgs e)
+    {        
+        // image
+        float fuelNormalize = (Player.Instance.CurrentFuel / Player.Instance.MaxFuel);    
+
         fuelImage.fillAmount = fuelNormalize;
         fuelAmountText.text = Mathf.Round(Player.Instance.CurrentFuel) + " / " + Player.Instance.MaxFuel;
     }
 
-  
+
+    void LateUpdate()
+    {
+        speedText.text = playerController.GetPlayerCurrentSpeed().ToString("F1");
+
+                
+        //Debug.Log("rb.totalForce: " + rb.linearVelocity.y);
+        //Debug.Log("rb.totalForce: " + (Mathf.Abs(rb.linearVelocity.y) * 10 ).ToString("F1"));
+        //  return (Mathf.Abs(rb.linearVelocity.y) * 10 );
+    }
+
 
 
 }

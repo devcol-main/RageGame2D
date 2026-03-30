@@ -37,12 +37,15 @@ public class PlayerController : MonoBehaviour
 
     // =====
     public Vector2 moveInput;
+    public float GetPlayerCurrentSpeed()
+    {
+        return (Mathf.Abs(rb.linearVelocity.y) * 10 );
+    }   
     // =====
     
 
     void Awake()
     {
-        
         // References
         player = GetComponent<Player>();  
         rb = GetComponent<Rigidbody2D>();  
@@ -218,12 +221,11 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {       
-        
         //rb.angularVelocity = Mathf.Lerp(rb.angularVelocity, 0f, brakingStrength * Time.fixedDeltaTime);
 
         rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -100f, 100f);
         
-
+        //
         currentVelocity = rb.linearVelocity;
         currentAngularVelocity = rb.angularVelocity;
     }
