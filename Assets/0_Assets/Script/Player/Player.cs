@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
 
         if (col.gameObject.TryGetComponent(out CollideableObject collideable))
         {
-            //Debug.Log(" collideable");
+            Debug.Log(" collideable");
         }
 
         //OnCollision?.Invoke();
