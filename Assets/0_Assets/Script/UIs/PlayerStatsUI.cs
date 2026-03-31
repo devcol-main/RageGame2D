@@ -28,8 +28,12 @@ public class PlayerStatsUI : MonoBehaviour
 
     void Start()
     {
-        Player.Instance.OnConsumingFuel += FuelColorChange;
-        Player.Instance.OnConsumingFuel += FuelAmountChange;
+        Player.Instance.OnConsumingFuel += FuelChange;
+
+        //
+        Player.Instance.OnFuelPickup += FuelChange;
+        Player.Instance.OnFuelSpaceStation += FuelChange;
+
 
         fuelAmountText.text = Player.Instance.CurrentFuel + " / " + Player.Instance.MaxFuel;
 
@@ -46,8 +50,8 @@ public class PlayerStatsUI : MonoBehaviour
 
     }
 
-    private void FuelColorChange(object sender, EventArgs e)
-    {        
+    private void FuelChange(object sender, EventArgs e)
+    {
         // image
         float fuelNormalize = (Player.Instance.CurrentFuel / Player.Instance.MaxFuel);    
 
@@ -68,19 +72,9 @@ public class PlayerStatsUI : MonoBehaviour
             fuelImage.color      = redColor;
         }
 
-        //fuelImage.fillAmount = fuelNormalize;
-        //fuelAmountText.text = Mathf.Round(Player.Instance.CurrentFuel) + " / " + Player.Instance.MaxFuel;
-    }
-
-    private void FuelAmountChange(object sender, EventArgs e)
-    {        
-        // image
-        float fuelNormalize = (Player.Instance.CurrentFuel / Player.Instance.MaxFuel);    
-
         fuelImage.fillAmount = fuelNormalize;
         fuelAmountText.text = Mathf.Round(Player.Instance.CurrentFuel) + " / " + Player.Instance.MaxFuel;
     }
-
 
     void LateUpdate()
     {

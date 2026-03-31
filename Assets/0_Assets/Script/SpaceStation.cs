@@ -12,9 +12,9 @@ public class SpaceStation : MonoBehaviour
     public float GetFuel () => fuelAmount;
 
 
-
     public void DockingSuccess()
     {
+        Debug.Log("Docking Success");
         // effect
 
         // disableCollider
@@ -26,6 +26,8 @@ public class SpaceStation : MonoBehaviour
         // stop movement
 
         // fueliing (max fuel)
+        Player.Instance.FuelFromSpaceStation();
+        // 
     }
 
 

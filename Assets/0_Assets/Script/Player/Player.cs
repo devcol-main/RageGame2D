@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
 
     public event EventHandler OnConsumingFuel;
 
+    public event EventHandler OnFuelSpaceStation;
+
     // only once
     public event EventHandler OnFuelJustEmpted;
     
@@ -130,6 +132,19 @@ public class Player : MonoBehaviour
 
     }
 
+    public void FuelFromSpaceStation()
+    {
+        Debug.Log("Player : FullFillFuel");
+        CurrentFuel = MaxFuel;
+
+        OnFuelSpaceStation?.Invoke(this, EventArgs.Empty);
+        
+
+    }
+
+
+    //
+
     void OnCollisionEnter2D(Collision2D col)
     {
         //Debug.Log($"OnCollisionEnter2D with {col}");
@@ -159,7 +174,6 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-
         #region  Fuel
         // contect with fuel
         if (col.gameObject.TryGetComponent(out Fuel fuel))
