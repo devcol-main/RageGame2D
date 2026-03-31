@@ -85,13 +85,20 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("OnJump from : " + this.gameObject.name  + "| performed: " + performed); 
 
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = 0f;
+            ForceZeroVelocity();
         }
         
     }
+    //
+    public void ForceZeroVelocity()
+    {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = 0f;
+    }
 
     // =====
+
+
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
     {
