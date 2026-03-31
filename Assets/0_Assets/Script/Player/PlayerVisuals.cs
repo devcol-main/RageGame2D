@@ -12,6 +12,11 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] private ParticleSystem downThrusterPS;
     [SerializeField] private ParticleSystem leftThrusterPS;
     [SerializeField] private ParticleSystem rightThrusterPS;
+
+    //[SerializeField] 
+    private float allThrusterOnDuration = 0.2f;
+
+    private bool isThrusterPSOn = false;
     
     [Space(5f)]
     [SerializeField] private ParticleSystem explotionPS;
@@ -20,7 +25,7 @@ public class PlayerVisuals : MonoBehaviour
 
     void Awake()
     {
-        SetAllThrusterPS(false);
+        SetAllThrusterPS(isThrusterPSOn);
         //explotionPS.transform.rotation = new Vector3
         
     }
@@ -32,6 +37,8 @@ public class PlayerVisuals : MonoBehaviour
         playerController.OnDownForce += OnDownForce;
         playerController.OnLeftForce += OnLeftForce;
         playerController.OnRightForce += OnRightForce;
+
+        playerController.OnAllForce += OnAllForce;
         
         //
         //playerController.OnBeforeForce += OnBeforeForce;
@@ -42,14 +49,15 @@ public class PlayerVisuals : MonoBehaviour
         Player.Instance.OnCrash += OnCollision;
     }
 
+    
+
     void OnDisable()
     {
        
     }
     public void OnBeforeActionForce()
     {
-        
-        SetAllThrusterPS(false);
+        SetAllThrusterPS(isThrusterPSOn);
     }
 
     // private void OnBeforeForce(object sender, EventArgs e)
@@ -77,6 +85,23 @@ public class PlayerVisuals : MonoBehaviour
     {
         //Debug.Log("OnUpForce SetThrusterPS");
         SetThrusterPS(upThrusterPS, true);
+    }
+
+
+    private void OnAllForce(object sender, EventArgs e)
+    {
+        
+        isThrusterPSOn = true;
+
+        SetAllThrusterPS(isThrusterPSOn);
+        // after duration turn off;
+
+        Invoke("OffThrusterPS", allThrusterOnDuration);
+    }
+
+    private void OffThrusterPS()
+    {
+        isThrusterPSOn = false;
     }
 
     

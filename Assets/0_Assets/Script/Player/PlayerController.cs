@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     public event EventHandler OnDownForce;
     public event EventHandler OnLeftForce;
     public event EventHandler OnRightForce;
+
+    public event EventHandler OnAllForce;
+
     //public event EventHandler OnBeforeForce;
     public Action OnBeforeActionForce;
     
@@ -62,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-
         IR.Jump += OnJump;
 
         //IR.Move += OnMove;
@@ -81,9 +83,13 @@ public class PlayerController : MonoBehaviour
 
     void OnJump(bool performed)
     {
-        if (performed)
+        float allForeceConsumingFuelAmount = player.FuelConsumptionAmount * 2;
+
+        if (performed && player.FixedConsumingFuel( allForeceConsumingFuelAmount ))
         {
+            
             Debug.Log("OnJump from : " + this.gameObject.name  + "| performed: " + performed); 
+            OnAllForce?.Invoke(this, EventArgs.Empty);
 
             ForceZeroVelocity();
         }
@@ -92,6 +98,7 @@ public class PlayerController : MonoBehaviour
     //
     public void ForceZeroVelocity()
     {
+        Debug.Log("ForceZeroVelocity");
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = 0f;
     }

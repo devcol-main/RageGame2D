@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     //
     public static Player Instance { get; private set; }
 
+
     // Event
     public event EventHandler OnCoinPickup;
     //public event EventHandler<OnLandedEventArgs> OnCoinPickup;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Collider2D playerCol;
+    [SerializeField] private PlayerController playerController;
     
 
 // ===== =====
@@ -113,22 +115,52 @@ public class Player : MonoBehaviour
 
         if (!IsInfiniteFuel)
         {
-            OnConsumingFuel?.Invoke(this, EventArgs.Empty);
 
             CurrentFuel -= FuelConsumptionAmount * Time.fixedDeltaTime;
+            //OnConsumingFuel?.Invoke(this, EventArgs.Empty);
             
             // to prvent going to negative
             if (0 >= CurrentFuel)
             {
-                
                 CurrentFuel = 0;
-                OnFuelJustEmpted?.Invoke(this, EventArgs.Empty);
-
+                //OnFuelJustEmpted?.Invoke(this, EventArgs.Empty);
             }
+
+            OnConsumingFuel?.Invoke(this, EventArgs.Empty);
 
         }
 
         return true;
+    }
+
+    // allow once to use even it's amount exceed currentfuel
+    public bool FixedConsumingFuel(float amount)
+    {
+         if(0 >= CurrentFuel && !IsInfiniteFuel)
+        {
+            OnFuelEmpty?.Invoke(this, EventArgs.Empty);
+            return false;
+        }
+
+        if (!IsInfiniteFuel)
+        {
+
+            CurrentFuel -= amount;
+            //OnConsumingFuel?.Invoke(this, EventArgs.Empty);
+            
+            // to prvent going to negative
+            if (0 >= CurrentFuel)
+            {
+                CurrentFuel = 0;
+                //OnFuelJustEmpted?.Invoke(this, EventArgs.Empty);
+            }
+
+            OnConsumingFuel?.Invoke(this, EventArgs.Empty);
+
+        }
+
+        return true;
+
 
     }
 
@@ -141,6 +173,29 @@ public class Player : MonoBehaviour
         
 
     }
+
+    //
+    public void SetParentObject(Transform parent)
+    {
+        this.transform.SetParent(parent);
+    }
+
+    public void ReleaseParentObject()
+    {
+        this.transform.SetParent(null);
+    }
+
+    //
+    public void InactivePlayerController()
+    {
+        playerController.enabled = false;
+    }
+
+    public void ActivePlayerController()
+    {
+        playerController.enabled=true;
+    }
+
 
 
     //
