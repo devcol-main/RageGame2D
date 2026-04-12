@@ -46,8 +46,9 @@ public class Player : MonoBehaviour
     // H2O
     public float MaxH2OTank { get; private set; }
     public float CurrentH2O { get; private set; }
-    
     public float H2OConsumptionAmountPerSec { get; private set; } 
+    public float H20FuelConsumptionAmount { get; private set; } 
+
 
     //
 
@@ -79,6 +80,14 @@ public class Player : MonoBehaviour
 
         // Set Player Stats
         CurrentFuel = MaxFuel;
+
+        // H20
+        MaxH2OTank = 10f;
+        CurrentH2O = MaxH2OTank; 
+        H2OConsumptionAmountPerSec = 5f;
+
+        H20FuelConsumptionAmount = 1f;
+
         
     }
 
@@ -92,7 +101,35 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // for debug
         IsInfiniteFuel = setInfiniteFuel;
+    }
+
+    void FixedUpdate()
+    {
+        // current == max
+        CurrentH2O -= H2OConsumptionAmountPerSec * Time.fixedDeltaTime;
+        Debug.Log("CurrentH2O: " + CurrentH2O);
+
+        if (CurrentH2O <= 0)
+        {
+            if (CurrentFuel > H20FuelConsumptionAmount)
+            {
+                CurrentFuel -= H20FuelConsumptionAmount;     
+                //CurrentH2O = MaxH2OTank;
+            }
+            else if (CurrentFuel <= H20FuelConsumptionAmount)
+            {
+                CurrentFuel = 0;
+                //CurrentH2O = MaxH2OTank;
+            }
+
+            CurrentH2O = MaxH2OTank;
+
+            OnConsumingFuel?.Invoke(this, EventArgs.Empty);
+            Debug.Log("!!! Fill Up H20");
+        }
+
     }
 
     private void OnGameStateChanged(object sender, GameManager.OnStateChangedEventArgs e)
