@@ -8,6 +8,32 @@ public enum Scene
     GameScene,
     NoobyScene
 }
+
+// public class SceneLoader : Singleton<SceneLoader>
+// {
+//     public void RestartScene()
+//     {
+//         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+//     }
+
+//     public void LoadScene(Scene scene)
+//     {
+//         SceneManager.LoadScene(scene.ToString());
+//     }
+
+//     public void LoadMainMenuScene()
+//     {
+//         LoadScene(Scene.MainMenuScene);
+//     }
+
+
+//     public void QuitApplication()
+//     {
+//         GameManager.Instance.OnApplicationQuit();
+//     }
+// }
+
+
 public static class SceneLoader
 {
     public static void RestartScene()
@@ -31,6 +57,5 @@ public static class SceneLoader
         GameManager.Instance.OnApplicationQuit();
     }
 
-    
-    
+
 }

@@ -36,19 +36,26 @@ public class Player : MonoBehaviour
     public Action OnCrash;
     //public Action On
     
-
-     
-    //[Header("Player Stats")]
-    
+    //[Header("= Player Stats =")]
     public bool IsInfiniteFuel { get; private set; }
     public float MaxFuel { get; private set; }
     public float CurrentFuel { get; private set; }
     public float FuelConsumptionAmount { get; private set; }
     //public float brakingStrength = 10f;
 
+    // H2O
+    public float MaxH2OTank { get; private set; }
+    public float CurrentH2O { get; private set; }
+    
+    public float H2OConsumptionAmountPerSec { get; private set; } 
+
+    //
+
     [Header("References")]
     [SerializeField] private Collider2D playerCol;
     [SerializeField] private PlayerController playerController;
+
+    
     
 
 // ===== =====
@@ -61,6 +68,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         playerCol = GetComponent<Collider2D>();
+        
         
 
         Instance = this;

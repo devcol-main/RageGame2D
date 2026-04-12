@@ -22,6 +22,7 @@ public class IngameUI : MonoBehaviour
         gameTimer = new StopwatchTimer("");
 
         // Buttons
+        //restartButton.onClick.AddListener(() =>  { SceneLoader.Instance.RestartScene();});
         restartButton.onClick.AddListener(() =>  { SceneLoader.RestartScene();});
         
     }
