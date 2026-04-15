@@ -12196,6 +12196,18 @@ PrefabInstance:
       value: SpaceStation Group
       objectReference: {fileID: 0}
     - target: {fileID: 8554229059518448737, guid: ec1fcdebedd934aeab6e6e1deb271a2f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554229059518448737, guid: ec1fcdebedd934aeab6e6e1deb271a2f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554229059518448737, guid: ec1fcdebedd934aeab6e6e1deb271a2f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554229059518448737, guid: ec1fcdebedd934aeab6e6e1deb271a2f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
